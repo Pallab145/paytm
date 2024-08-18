@@ -27,4 +27,8 @@ jobs:
         tags: pallab145/paytm-test:latest  # Replace with your Docker Hub username and repository
 
     - name: Verify Pushed Image
+<<<<<<< HEAD
       run: docker pull pallab145/paytm-test:latest  # Replace with your Docker Hub username and repository
+=======
+      run: docker pull pallab145/paytm-test:latest  # Replace with your Docker Hub username and repository
+>>>>>>> cae0d05fe7c9d84b57be85a5841d5fab6302fbdf
