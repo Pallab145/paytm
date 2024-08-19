@@ -7,12 +7,10 @@ export const authOptions = {
       CredentialsProvider({
           name: 'Credentials',
           credentials: {
-            phone: { label: "Phone number", type: "text", placeholder: "1231231231", required: true },
+            phone: { label: "Phone number", type: "text", placeholder: "0123456789", required: true },
             password: { label: "Password", type: "password", required: true }
           },
-          // TODO: User credentials type from next-aut
           async authorize(credentials: any) {
-            // Do zod validation, OTP validation here
             const hashedPassword = await bcrypt.hash(credentials.password, 10);
             const existingUser = await db.user.findFirst({
                 where: {
@@ -36,10 +34,16 @@ export const authOptions = {
                 const user = await db.user.create({
                     data: {
                         number: credentials.phone,
-                        password: hashedPassword
+                        password: hashedPassword,
+                        Balance: {
+                            create: {
+                                amount: 0, // Initialize balance with 0 or any starting amount
+                                locked: 0
+                            }
+                        }
                     }
                 });
-            
+
                 return {
                     id: user.id.toString(),
                     name: user.name,
@@ -49,7 +53,7 @@ export const authOptions = {
                 console.error(e);
             }
 
-            return null
+            return null;
           },
         })
     ],
