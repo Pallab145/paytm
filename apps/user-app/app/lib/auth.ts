@@ -8,7 +8,9 @@ export const authOptions = {
           name: 'Credentials',
           credentials: {
             phone: { label: "Phone number", type: "text", placeholder: "0123456789", required: true },
-            password: { label: "Password", type: "password", required: true }
+            password: { label: "Password", type: "password", required: true },
+            firstname:{ label: "Firstname", type: "text",placeholder: "John", required : true },
+            lastname:{ label: "Lastname", type: "text",placeholder: "Smith", required : true }
           },
           async authorize(credentials: any) {
             const hashedPassword = await bcrypt.hash(credentials.password, 10);
@@ -23,7 +25,8 @@ export const authOptions = {
                 if (passwordValidation) {
                     return {
                         id: existingUser.id.toString(),
-                        name: existingUser.name,
+                        firstname: existingUser.firstname,
+                        lastname: existingUser.lastname,
                         email: existingUser.number
                     }
                 }
@@ -35,6 +38,8 @@ export const authOptions = {
                     data: {
                         number: credentials.phone,
                         password: hashedPassword,
+                        firstname: credentials.firstname,
+                        lastname: credentials.lastname,
                         Balance: {
                             create: {
                                 amount: 0, // Initialize balance with 0 or any starting amount
@@ -46,7 +51,8 @@ export const authOptions = {
 
                 return {
                     id: user.id.toString(),
-                    name: user.name,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
                     email: user.number
                 }
             } catch(e) {

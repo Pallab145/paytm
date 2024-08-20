@@ -14,7 +14,7 @@ async function getP2pTranfer(){
     return transaction.map((t) => ({
         amount: t.amount,
         timestamp: t.timestamp,
-      })); 
+    })); 
 }
 
 
